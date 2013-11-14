@@ -10,6 +10,14 @@ public class Server {
 
     public void start() {
         setPort(8080);
+        get(new Route("/call") {
+
+            @Override
+            public Object handle(Request request, Response response) {
+                return request.queryParams("atFloor");
+            }
+            
+        });
         get(new Route("/:path") {
             @Override
             public Object handle(Request request, Response response) {
@@ -22,5 +30,6 @@ public class Server {
                 }
             }
         });
+        
     }
 }

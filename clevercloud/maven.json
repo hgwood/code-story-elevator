@@ -1,0 +1,9 @@
+{
+    "build": {
+        "type": "maven",
+        "goal": "clean package"
+    },
+    "deploy": {
+        "goal": "-Dexec.mainClass=\"fr.hgwood.codestory.elevator.Server\" exec:java"
+    }
+}

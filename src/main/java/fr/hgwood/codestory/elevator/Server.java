@@ -5,11 +5,11 @@ import spark.*;
 
 public class Server {
     public static void main(String[] args) {
-        new Server().start();
+        new Server().start(8080);
     }
 
-    public void start() {
-        setPort(8080);
+    public void start(int port) {
+        setPort(port);
         get(new Route("/call") {
 
             @Override

@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class IntegrationTest {
+public class AcceptanceTest {
     
     @Mock
     private Elevator elevator;

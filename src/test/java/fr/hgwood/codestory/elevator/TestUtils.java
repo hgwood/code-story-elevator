@@ -41,6 +41,10 @@ public class TestUtils {
         };
     }
     
+    public static Matcher<HttpResponseInfo> respondsOk() {
+    	return responds(200);
+    }
+    
     public static Matcher<HttpResponseInfo> responds(final String content) {
         return new TypeSafeMatcher<HttpResponseInfo>() {
 

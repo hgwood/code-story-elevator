@@ -6,7 +6,13 @@ import spark.*;
 
 public class Server {
     public static void main(String[] args) {
-        new Server().start(8080);
+        new Server(new NoopElevator()).start(8080);
+    }
+    
+    private final Elevator elevator;
+    
+    public Server(Elevator elevator) {
+        this.elevator = elevator;
     }
 
     public void start(int port) {
@@ -22,6 +28,7 @@ public class Server {
             public Object handle(Request request, Response response) {
                 int atFloor = parseInt(request.queryParams("atFloor"));
                 Direction to = Direction.valueOf(request.queryParams("to"));
+                elevator.call(atFloor, to);
                 return "";
             }
         });

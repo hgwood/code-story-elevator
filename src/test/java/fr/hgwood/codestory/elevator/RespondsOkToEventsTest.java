@@ -4,21 +4,8 @@ import static fr.hgwood.codestory.elevator.TestUtils.*;
 import static org.junit.Assert.assertThat;
 
 import org.junit.*;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
-public class RespondsOkToEventsTest {
-
-    private Server sut = new Server();
-
-    @Before public void setup() {
-        sut.start(TestPort);
-    }
-
-    @After public void tearDown() {
-        sut.stop();
-    }
+public class RespondsOkToEventsTest extends AcceptanceTest {
 
     @Test public void call() throws Exception {
         assertThat(requestTo("/call?atFloor=0&to=UP"), respondsOk());

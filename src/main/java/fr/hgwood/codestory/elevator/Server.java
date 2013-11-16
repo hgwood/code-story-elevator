@@ -10,26 +10,52 @@ public class Server {
 
     public void start(int port) {
         setPort(port);
+        get(new Route("/") {
+            @Override
+            public Object handle(Request request, Response response) {
+                return "";
+            }
+        });
         get(new Route("/call") {
-
             @Override
             public Object handle(Request request, Response response) {
-                return request.queryParams("atFloor");
+                request.queryParams("atFloor");
+                return "";
             }
-            
         });
-        get(new Route("/:path") {
+        get(new Route("/go") {
             @Override
             public Object handle(Request request, Response response) {
-                String path = request.params(":path");
-                if (path.equals("nextCommand")) {
-                    return "NOTHING";
-                } else {
-                    response.status(404);
-                    return "Page not found";
-                }
+                return "";
             }
         });
-        
+        get(new Route("/userHasEntered") {
+            @Override
+            public Object handle(Request request, Response response) {
+                return "";
+            }
+        });
+        get(new Route("/userHasExited") {
+            @Override
+            public Object handle(Request request, Response response) {
+                return "";
+            }
+        });
+        get(new Route("/reset") {
+            @Override
+            public Object handle(Request request, Response response) {
+                return "";
+            }
+        });
+        get(new Route("/nextCommand") {
+            @Override
+            public Object handle(Request request, Response response) {
+                return "NOTHING";
+            }
+        });
+    }
+    
+    public void stop() {
+        spark.Spark.stop();
     }
 }

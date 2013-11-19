@@ -7,5 +7,7 @@ public interface Elevator {
     void userHasEntered();
     void userHasExited();
     Action next();
+    
+    void reset(int lowerFloor, int higherFloor, int cabinSize);
 
 }

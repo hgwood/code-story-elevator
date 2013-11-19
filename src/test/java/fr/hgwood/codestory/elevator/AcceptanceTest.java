@@ -2,12 +2,12 @@ package fr.hgwood.codestory.elevator;
 
 import static fr.hgwood.codestory.elevator.TestUtils.TestPort;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class AcceptanceTest {
     

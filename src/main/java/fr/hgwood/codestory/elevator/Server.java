@@ -6,7 +6,7 @@ import spark.*;
 
 public class Server {
     public static void main(String[] args) {
-        new Server(new NoopElevator()).start(8080);
+        new Server(new Omnibus()).start(8080);
     }
     
     private final Elevator elevator;

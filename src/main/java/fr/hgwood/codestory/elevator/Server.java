@@ -36,18 +36,21 @@ public class Server {
             @Override
             public Object handle(Request request, Response response) {
                 int floorToGo = parseInt(request.queryParams("floorToGo"));
+                elevator.go(floorToGo);
                 return "";
             }
         });
         get(new Route("/userHasEntered") {
             @Override
             public Object handle(Request request, Response response) {
+                elevator.userHasEntered();
                 return "";
             }
         });
         get(new Route("/userHasExited") {
             @Override
             public Object handle(Request request, Response response) {
+                elevator.userHasExited();
                 return "";
             }
         });
@@ -58,13 +61,14 @@ public class Server {
                 int higherFloor = parseInt(request.queryParams("higherFloor"));
                 int cabinSize = parseInt(request.queryParams("cabinSize"));
                 String cause = request.queryParams("cause");
+                elevator.reset(lowerFloor, higherFloor, cabinSize);
                 return "";
             }
         });
         get(new Route("/nextCommand") {
             @Override
             public Object handle(Request request, Response response) {
-                return "NOTHING";
+                return elevator.next().toString().toUpperCase();
             }
         });
     }

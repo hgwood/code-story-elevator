@@ -12,7 +12,7 @@ public class Omnibus implements Elevator {
     private int lowestFloor;
     private int highestFloor;
     private int cabinSize;
-    private Set<Integer> floorsToStopAt;
+    private Set<Integer> floorsToStopAt = newHashSet();
     private int currentFloor;
     private Direction currentDirection = UP;
     private boolean isOpened;
@@ -26,7 +26,6 @@ public class Omnibus implements Elevator {
         this.lowestFloor = lowestFloor;
         this.highestFloor = highestFloor;
         this.cabinSize = cabinSize;
-        this.floorsToStopAt = newHashSet();
     }
 
     @Override public void call(int atFloor, Direction to) {

@@ -1,6 +1,8 @@
 package fr.hgwood.codestory.elevator;
 
 import static fr.hgwood.codestory.elevator.TestUtils.TestPort;
+import static fr.hgwood.codestory.elevator.Action.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -15,6 +17,7 @@ public class AcceptanceTest {
     private Server sut;
 
     @Before public void setup() {
+        when(elevator.next()).thenReturn(Open);
         sut = new Server(elevator);
         sut.start(TestPort);
     }

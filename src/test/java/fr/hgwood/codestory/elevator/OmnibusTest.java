@@ -54,5 +54,22 @@ public class OmnibusTest {
         sut.userHasEntered();
         sut.userHasEntered();
     }
+    
+    @Test public void doesntOpenIfTheCabinIsFullAndNoOneWantsToGetOut() {
+        sut.userHasEntered();
+        sut.call(1, null);
+        assertThat(sut.next(), is(Up));
+        assertThat(sut.next(), is(Up));
+    }
+    
+    @Test public void opensIfTheCabinIsFullButPeopleWantToGetOut() {
+        sut.userHasEntered();
+        sut.go(1);
+        sut.call(1, null);
+        assertThat(sut.next(), is(Up));
+        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Close));
+        assertThat(sut.next(), is(Up));
+    }
 
 }

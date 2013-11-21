@@ -12,7 +12,8 @@ public class Omnibus implements Elevator {
     private int lowestFloor;
     private int highestFloor;
     private int cabinSize;
-    private Set<Integer> floorsToStopAt = newHashSet();
+    private Set<Integer> floorsWherePeopleWantToIn = newHashSet();
+    private Set<Integer> floorsWherePeopleWantToOut = newHashSet();
     private int currentFloor;
     private Direction currentDirection = UP;
     private boolean isOpened;
@@ -29,22 +30,21 @@ public class Omnibus implements Elevator {
     }
 
     @Override public void call(int atFloor, Direction to) {
-        floorsToStopAt.add(atFloor);
+        floorsWherePeopleWantToIn.add(atFloor);
     }
 
     @Override public void go(int floorToGo) {
-        floorsToStopAt.add(floorToGo);
-
+        floorsWherePeopleWantToOut.add(floorToGo);
     }
 
     @Override public void userHasEntered() {
-        if (currentNumberOfUsers >= cabinSize) 
+        if (cabinIsFull()) 
             throw new ElevatorException("cabin is full!");
         currentNumberOfUsers += 1;
     }
 
     @Override public void userHasExited() {
-        if (currentNumberOfUsers <= 0) 
+        if (cabinIsEmpty()) 
             throw new ElevatorException("can't exit: no one in the cabin!");
         currentNumberOfUsers -= 1;
     }
@@ -53,7 +53,10 @@ public class Omnibus implements Elevator {
         if (isOpened) {
             return close();
         }
-        if (floorsToStopAt.contains(currentFloor)) {
+        if (floorsWherePeopleWantToOut.contains(currentFloor)) {
+            return open();
+        }
+        if (!cabinIsFull() && floorsWherePeopleWantToIn.contains(currentFloor)) {
             return open();
         }
         if (currentFloor == highestFloor) {
@@ -69,8 +72,17 @@ public class Omnibus implements Elevator {
         }
     }
     
+    private boolean cabinIsFull() {
+        return currentNumberOfUsers >= cabinSize;
+    }
+    
+    private boolean cabinIsEmpty() {
+        return currentNumberOfUsers <= 0;
+    }
+    
     private Action open() {
-        floorsToStopAt.remove(currentFloor);
+        floorsWherePeopleWantToIn.remove(currentFloor);
+        floorsWherePeopleWantToOut.remove(currentFloor);
         isOpened = true;
         return Open;
     }
@@ -95,7 +107,8 @@ public class Omnibus implements Elevator {
         this.lowestFloor = lowerFloor;
         this.highestFloor = higherFloor;
         this.cabinSize = cabinSize;
-        this.floorsToStopAt = newHashSet();
+        this.floorsWherePeopleWantToIn = newHashSet();
+        this.floorsWherePeopleWantToOut = newHashSet();
         this.currentFloor = 0;
         this.currentDirection = UP;
         this.isOpened = false;

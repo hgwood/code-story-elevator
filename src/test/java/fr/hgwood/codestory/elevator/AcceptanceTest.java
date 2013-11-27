@@ -1,5 +1,6 @@
 package fr.hgwood.codestory.elevator;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static fr.hgwood.codestory.elevator.TestUtils.TestPort;
 import static fr.hgwood.codestory.elevator.Action.*;
 import static org.mockito.Mockito.*;
@@ -18,7 +19,7 @@ public class AcceptanceTest {
 
     @Before public void setup() {
         when(elevator.next()).thenReturn(Open);
-        sut = new Server(elevator);
+        sut = new Server(newArrayList(elevator));
         sut.start(TestPort);
     }
 

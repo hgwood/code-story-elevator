@@ -12,15 +12,15 @@ public class RespondsOkToEventsTest extends AcceptanceTest {
     }
 
     @Test public void go() throws Exception {
-        assertThat(requestTo("/go?floorToGo=0"), respondsOk());
+        assertThat(requestTo("/go?cabin=0&floorToGo=0"), respondsOk());
     }
 
     @Test public void userHasEntered() throws Exception {
-        assertThat(requestTo("/userHasEntered"), respondsOk());
+        assertThat(requestTo("/userHasEntered?cabin=0"), respondsOk());
     }
 
     @Test public void userHasExited() throws Exception {
-        assertThat(requestTo("/userHasExited"), respondsOk());
+        assertThat(requestTo("/userHasExited?cabin=0"), respondsOk());
     }
 
     @Test public void reset() throws Exception {
@@ -28,6 +28,7 @@ public class RespondsOkToEventsTest extends AcceptanceTest {
             "lowerFloor=0&" +
             "higherFloor=1&" + 
             "cabinSize=1&" + 
+            "cabinCount=2&" +
             "cause=information+message";
         assertThat(requestTo(resetUrl), respondsOk());
     }

@@ -1,18 +1,27 @@
 package fr.hgwood.codestory.elevator;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
 import static spark.Spark.*;
+
+import java.util.Collections;
+import java.util.List;
+
 import spark.*;
 
 public class Server {
     public static void main(String[] args) {
-        new Server(new Omnibus()).start(8080);
+        new Server().start(8080);
     }
     
-    private final Elevator elevator;
+    private List<Elevator> elevators;
     
-    public Server(Elevator elevator) {
-        this.elevator = elevator;
+    public Server() {
+        this(Collections.<Elevator>emptyList());
+    }
+    
+    public Server(List<Elevator> elevators) {
+        this.elevators = elevators;
     }
 
     public void start(int port) {
@@ -28,29 +37,33 @@ public class Server {
             public Object handle(Request request, Response response) {
                 int atFloor = parseInt(request.queryParams("atFloor"));
                 Direction to = Direction.valueOf(request.queryParams("to"));
-                elevator.call(atFloor, to);
+                for (Elevator elevator : elevators)
+                    elevator.call(atFloor, to);
                 return "";
             }
         });
         get(new Route("/go") {
             @Override
             public Object handle(Request request, Response response) {
+                int cabin = parseInt(request.queryParams("cabin"));
                 int floorToGo = parseInt(request.queryParams("floorToGo"));
-                elevator.go(floorToGo);
+                elevators.get(cabin).go(floorToGo);
                 return "";
             }
         });
         get(new Route("/userHasEntered") {
             @Override
             public Object handle(Request request, Response response) {
-                elevator.userHasEntered();
+                int cabin = parseInt(request.queryParams("cabin"));
+                elevators.get(cabin).userHasEntered();
                 return "";
             }
         });
         get(new Route("/userHasExited") {
             @Override
             public Object handle(Request request, Response response) {
-                elevator.userHasExited();
+                int cabin = parseInt(request.queryParams("cabin"));
+                elevators.get(cabin).userHasExited();
                 return "";
             }
         });
@@ -60,15 +73,24 @@ public class Server {
                 int lowerFloor = parseInt(request.queryParams("lowerFloor"));
                 int higherFloor = parseInt(request.queryParams("higherFloor"));
                 int cabinSize = parseInt(request.queryParams("cabinSize"));
+                int cabinCount = parseInt(request.queryParams("cabinCount"));
                 String cause = request.queryParams("cause");
-                elevator.reset(lowerFloor, higherFloor, cabinSize);
+                System.out.println("reset! cause: " + cause);
+                elevators = newArrayList();
+                for (int i = 0; i < cabinCount; i++)
+                    elevators.add(new Omnibus(lowerFloor, higherFloor, cabinSize));
                 return "";
             }
         });
         get(new Route("/nextCommand") {
             @Override
             public Object handle(Request request, Response response) {
-                return elevator.next().toString().toUpperCase();
+                StringBuilder commands = new StringBuilder();
+                for (Elevator elevator : elevators) {
+                    commands.append(elevator.next().toString().toUpperCase());
+                    commands.append("\n");
+                }
+                return commands.toString();
             }
         });
     }

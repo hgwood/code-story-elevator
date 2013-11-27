@@ -82,7 +82,7 @@ public class Server {
                 return "";
             }
         });
-        get(new Route("/nextCommand") {
+        get(new Route("/nextCommands") {
             @Override
             public Object handle(Request request, Response response) {
                 StringBuilder commands = new StringBuilder();

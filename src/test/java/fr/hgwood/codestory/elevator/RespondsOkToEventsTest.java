@@ -33,8 +33,8 @@ public class RespondsOkToEventsTest extends AcceptanceTest {
         assertThat(requestTo(resetUrl), respondsOk());
     }
 
-    @Test public void nextCommand() throws Exception {
-        assertThat(requestTo("/nextCommand"), respondsOk());
+    @Test public void nextCommands() throws Exception {
+        assertThat(requestTo("/nextCommands"), respondsOk());
     }
 
 }

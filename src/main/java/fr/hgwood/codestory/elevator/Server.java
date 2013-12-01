@@ -3,6 +3,7 @@ package fr.hgwood.codestory.elevator;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
 import static spark.Spark.*;
+import static fr.hgwood.codestory.elevator.Direction.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -77,8 +78,11 @@ public class Server {
                 String cause = request.queryParams("cause");
                 System.out.println("reset! cause: " + cause);
                 elevators = newArrayList();
-                for (int i = 0; i < cabinCount; i++)
-                    elevators.add(new Omnibus(lowerFloor, higherFloor, cabinSize));
+                Direction direction = UP;
+                for (int i = 0; i < cabinCount; i++) {
+                    elevators.add(new Omnibus(lowerFloor, higherFloor, cabinSize, direction));
+                    direction = direction.reverse();
+                }
                 return "";
             }
         });

@@ -27,10 +27,4 @@ public class NoopElevator implements Elevator {
         return null;
     }
 
-    @Override
-    public void reset(int lowerFloor, int higherFloor, int cabinSize) {
-        // TODO Auto-generated method stub
-        
-    }
-
 }

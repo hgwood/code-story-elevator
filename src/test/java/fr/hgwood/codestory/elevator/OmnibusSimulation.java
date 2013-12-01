@@ -24,7 +24,7 @@ public class OmnibusSimulation {
         assertThat(sut.next(), is(Up)); //9
         sut.call(5, null);
         assertThat(sut.next(), is(Up)); // 10
-        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Open_Up));
         sut.userHasEntered();
         sut.go(1);
         assertThat(sut.next(), is(Close));
@@ -34,14 +34,14 @@ public class OmnibusSimulation {
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up)); //16
-        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Open_Up));
         sut.userHasEntered();
         sut.go(19);
         assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up)); //19
-        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Open_Down));
         sut.userHasExited();
         assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Down));
@@ -55,7 +55,7 @@ public class OmnibusSimulation {
         sut.call(9, null);
         assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down)); //9
-        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Open_Down));
         sut.userHasEntered();
         sut.go(1);
         assertThat(sut.next(), is(Close));
@@ -63,7 +63,7 @@ public class OmnibusSimulation {
         assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down)); //5
-        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Open_Down));
         sut.userHasEntered();
         sut.go(1);
         assertThat(sut.next(), is(Close));
@@ -71,7 +71,7 @@ public class OmnibusSimulation {
         assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down)); //1
-        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Open_Down));
         sut.userHasExited();
         sut.userHasExited();
         sut.userHasExited();

@@ -8,6 +8,4 @@ public interface Elevator {
     void userHasExited();
     Action next();
     
-    void reset(int lowerFloor, int higherFloor, int cabinSize);
-
 }

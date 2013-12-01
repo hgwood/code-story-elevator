@@ -24,7 +24,7 @@ public class OmnibusTest {
     @Test public void stopsAtCalledFloors() {
         sut.call(1, null);
         assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Open_Up));
         assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Up));
     }
@@ -32,24 +32,12 @@ public class OmnibusTest {
     @Test public void stopsAtDestinationFloors() {
         sut.go(1);
         assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Open_Up));
         assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Up));
     }
     
-    @Test public void respectsResets() {
-        assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Down));
-        sut.reset(0, 1, 1);
-        assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Down));
-        sut.userHasEntered();
-        sut.reset(0, 1, 1);
-        sut.userHasEntered();
-    }
-    
-    @Test(expected=ElevatorException.class) 
+    @Test(expected=IllegalStateException.class) 
     public void respectsCabinSize() {
         sut.userHasEntered();
         sut.userHasEntered();
@@ -67,7 +55,7 @@ public class OmnibusTest {
         sut.go(1);
         sut.call(1, null);
         assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Open));
+        assertThat(sut.next(), is(Open_Up));
         assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Up));
     }

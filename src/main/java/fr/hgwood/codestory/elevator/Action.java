@@ -6,6 +6,8 @@ public enum Action {
     Up,
     Down,
     Open,
+    Open_Up,
+    Open_Down,
     Close,
 
 }

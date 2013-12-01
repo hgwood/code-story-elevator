@@ -5,7 +5,9 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.*;
 
-public class RespondsOkToEventsTest extends AcceptanceTest {
+public class RespondsOkToEventsTest { //extends AcceptanceTest {
+    
+    @Rule public EndToEndFixture fixture = new EndToEndFixture();
 
     @Test public void call() throws Exception {
         assertThat(requestTo("/call?atFloor=0&to=UP"), respondsOk());

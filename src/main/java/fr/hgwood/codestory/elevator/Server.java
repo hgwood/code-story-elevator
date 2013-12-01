@@ -79,8 +79,9 @@ public class Server {
                 System.out.println("reset! cause: " + cause);
                 elevators = newArrayList();
                 Direction direction = UP;
+                CallManager callManager = new CallManager();
                 for (int i = 0; i < cabinCount; i++) {
-                    elevators.add(new Omnibus(lowerFloor, higherFloor, cabinSize, direction));
+                    elevators.add(new Omnibus(callManager, lowerFloor, higherFloor, cabinSize, direction));
                     direction = direction.reverse();
                 }
                 return "";

@@ -12,7 +12,8 @@ public class Omnibus implements Elevator {
     private int lowestFloor;
     private int highestFloor;
     private int cabinSize;
-    private Set<Integer> floorsWherePeopleWantToIn = newHashSet();
+    private Set<Integer> floorsWherePeopleWantToGetInAndUp = newHashSet();
+    private Set<Integer> floorsWherePeopleWantToGetInAndDown = newHashSet();
     private Set<Integer> floorsWherePeopleWantToOut = newHashSet();
     private int currentFloor;
     private Direction currentDirection;
@@ -31,7 +32,8 @@ public class Omnibus implements Elevator {
     }
 
     @Override public void call(int atFloor, Direction to) {
-        floorsWherePeopleWantToIn.add(atFloor);
+        if (to == UP) floorsWherePeopleWantToGetInAndUp.add(atFloor);
+        else floorsWherePeopleWantToGetInAndDown.add(atFloor);
     }
 
     @Override public void go(int floorToGo) {
@@ -53,7 +55,10 @@ public class Omnibus implements Elevator {
         if (currentFloor == lowestFloor) currentDirection = UP;
         if (isOpened) return close();
         if (floorsWherePeopleWantToOut.contains(currentFloor)) return open();
-        if (!cabinIsFull() && floorsWherePeopleWantToIn.contains(currentFloor)) return open();
+        if (!cabinIsFull()) {
+            if (currentDirection == UP && floorsWherePeopleWantToGetInAndUp.contains(currentFloor)) return open();
+            if (currentDirection == DOWN && floorsWherePeopleWantToGetInAndDown.contains(currentFloor)) return open();
+        }
         if (currentDirection == UP) return up();
         else return down();
     }
@@ -67,7 +72,8 @@ public class Omnibus implements Elevator {
     }
     
     private Action open() {
-        floorsWherePeopleWantToIn.remove(currentFloor);
+        if (currentDirection == UP) floorsWherePeopleWantToGetInAndUp.remove(currentFloor);
+        else floorsWherePeopleWantToGetInAndDown.remove(currentFloor);
         floorsWherePeopleWantToOut.remove(currentFloor);
         isOpened = true;
         if (currentDirection == UP) return Open_Up;

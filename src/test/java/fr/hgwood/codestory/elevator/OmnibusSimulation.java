@@ -1,6 +1,7 @@
 package fr.hgwood.codestory.elevator;
 
 import static fr.hgwood.codestory.elevator.Action.*;
+import static fr.hgwood.codestory.elevator.Direction.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -14,15 +15,15 @@ public class OmnibusSimulation {
         assertThat(sut.next(), is(Up)); //1
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up));
-        sut.call(10, null);
+        sut.call(10, UP);
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up));
-        sut.call(16, null);
+        sut.call(16, DOWN);
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up)); //9
-        sut.call(5, null);
+        sut.call(5, DOWN);
         assertThat(sut.next(), is(Up)); // 10
         assertThat(sut.next(), is(Open_Up));
         sut.userHasEntered();
@@ -34,25 +35,22 @@ public class OmnibusSimulation {
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up)); //16
-        assertThat(sut.next(), is(Open_Up));
-        sut.userHasEntered();
-        sut.go(19);
-        assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up)); //19
+        assertThat(sut.next(), is(Down));
+        assertThat(sut.next(), is(Down));
+        assertThat(sut.next(), is(Down)); //16
         assertThat(sut.next(), is(Open_Down));
-        sut.userHasExited();
+        sut.userHasEntered();
+        sut.go(19);
         assertThat(sut.next(), is(Close));
-        assertThat(sut.next(), is(Down));
-        assertThat(sut.next(), is(Down));
-        assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down)); //15
         assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down));
-        sut.call(9, null);
+        sut.call(9, DOWN);
         assertThat(sut.next(), is(Down));
         assertThat(sut.next(), is(Down)); //9
         assertThat(sut.next(), is(Open_Down));

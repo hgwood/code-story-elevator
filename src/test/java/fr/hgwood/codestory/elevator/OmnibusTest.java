@@ -1,6 +1,7 @@
 package fr.hgwood.codestory.elevator;
 
 import static fr.hgwood.codestory.elevator.Action.*;
+import static fr.hgwood.codestory.elevator.Direction.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -22,7 +23,7 @@ public class OmnibusTest {
     }
     
     @Test public void stopsAtCalledFloors() {
-        sut.call(1, null);
+        sut.call(1, UP);
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Open_Up));
         assertThat(sut.next(), is(Close));

@@ -1,14 +1,15 @@
 package fr.hgwood.codestory.elevator;
 
-import static com.google.common.collect.Sets.newHashSet;
-import static fr.hgwood.codestory.elevator.Direction.*;
+import static fr.hgwood.codestory.elevator.Direction.UP;
 
-import java.util.Set;
+import java.util.Collection;
+
+import com.google.common.collect.HashMultiset;
 
 public class CallManager {
     
-    private Set<Integer> upCalls = newHashSet();
-    private Set<Integer> downCalls = newHashSet();
+    private Collection<Integer> upCalls = HashMultiset.create();
+    private Collection<Integer> downCalls = HashMultiset.create();
     
     public void add(int floor, Direction direction) {
         if (direction == UP) upCalls.add(floor);

@@ -42,6 +42,7 @@ public class Omnibus implements Elevator {
     @Override public void userHasEntered() {
         if (cabinIsFull()) throw new IllegalStateException("cabin is full!");
         currentNumberOfUsers += 1;
+        callManager.remove(currentFloor, currentDirection);
     }
 
     @Override public void userHasExited() {
@@ -68,7 +69,6 @@ public class Omnibus implements Elevator {
     }
     
     private Action open() {
-        callManager.remove(currentFloor, currentDirection);
         floorsWherePeopleWantToOut.remove(currentFloor);
         isOpened = true;
         if (currentDirection == UP) return Open_Up;

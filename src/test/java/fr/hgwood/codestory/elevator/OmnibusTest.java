@@ -26,14 +26,17 @@ public class OmnibusTest {
         sut.call(1, UP);
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Open_Up));
+        sut.userHasEntered();
         assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Up));
     }
     
     @Test public void stopsAtDestinationFloors() {
+        sut.userHasEntered();
         sut.go(1);
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Open_Up));
+        sut.userHasExited();
         assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Up));
     }
@@ -46,7 +49,7 @@ public class OmnibusTest {
     
     @Test public void doesntOpenIfTheCabinIsFullAndNoOneWantsToGetOut() {
         sut.userHasEntered();
-        sut.call(1, null);
+        sut.call(1, UP);
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Up));
     }
@@ -54,9 +57,11 @@ public class OmnibusTest {
     @Test public void opensIfTheCabinIsFullButPeopleWantToGetOut() {
         sut.userHasEntered();
         sut.go(1);
-        sut.call(1, null);
+        sut.call(1, UP);
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Open_Up));
+        sut.userHasExited();
+        sut.userHasEntered();
         assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Up));
     }

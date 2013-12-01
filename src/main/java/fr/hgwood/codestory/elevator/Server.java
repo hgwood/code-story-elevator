@@ -16,13 +16,15 @@ public class Server {
     }
     
     private List<Elevator> elevators;
+    private CallManager callManager;
     
     public Server() {
-        this(Collections.<Elevator>emptyList());
+        this(Collections.<Elevator>emptyList(), new CallManager());
     }
     
-    public Server(List<Elevator> elevators) {
+    public Server(List<Elevator> elevators, CallManager callManager) {
         this.elevators = elevators;
+        this.callManager = callManager;
     }
 
     public void start(int port) {
@@ -38,8 +40,7 @@ public class Server {
             public Object handle(Request request, Response response) {
                 int atFloor = parseInt(request.queryParams("atFloor"));
                 Direction to = Direction.valueOf(request.queryParams("to"));
-                for (Elevator elevator : elevators)
-                    elevator.call(atFloor, to);
+                callManager.add(atFloor, to);
                 return "";
             }
         });
@@ -79,7 +80,7 @@ public class Server {
                 System.out.println("reset! cause: " + cause);
                 elevators = newArrayList();
                 Direction direction = UP;
-                CallManager callManager = new CallManager();
+                callManager = new CallManager();
                 for (int i = 0; i < cabinCount; i++) {
                     elevators.add(new Omnibus(callManager, lowerFloor, higherFloor, cabinSize, direction));
                     direction = direction.reverse();

@@ -14,9 +14,9 @@ public class ForwardsEventsToElevator {
     
     @Test public void call() throws Exception {
         requestTo("/call?atFloor=0&to=UP");
-        verify(fixture.elevator).call(0, UP);
+        verify(fixture.callManager).add(0, UP);
         requestTo("/call?atFloor=1&to=DOWN");
-        verify(fixture.elevator).call(1, DOWN);
+        verify(fixture.callManager).add(1, DOWN);
     }
 
 }

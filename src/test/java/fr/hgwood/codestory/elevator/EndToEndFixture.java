@@ -10,11 +10,12 @@ import org.junit.rules.ExternalResource;
 public class EndToEndFixture extends ExternalResource {
     
     public final Elevator elevator = mock(Elevator.class);
+    public final CallManager callManager = mock(CallManager.class);
     private Server server;
     
     @Override protected void before() {
         when(elevator.next()).thenReturn(Open);
-        server = new Server(singletonList(elevator));
+        server = new Server(singletonList(elevator), callManager);
         server.start(TestPort);
     }
     

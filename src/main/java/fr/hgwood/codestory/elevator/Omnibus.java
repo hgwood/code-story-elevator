@@ -9,15 +9,15 @@ import java.util.Set;
 
 public class Omnibus implements Elevator {
     
-    private int lowestFloor;
-    private int highestFloor;
-    private int cabinSize;
-    private Set<Integer> floorsWherePeopleWantToOut = newHashSet();
+    private final CallManager callManager;
+    private final int lowestFloor;
+    private final int highestFloor;
+    private final int cabinSize;
+    private final Set<Integer> floorsWherePeopleWantToOut = newHashSet();
     private int currentFloor;
     private Direction currentDirection;
     private boolean isOpened;
     private int currentNumberOfUsers;
-    private final CallManager callManager;
     
     public Omnibus(int lowestFloor, int highestFloor, int cabinSize) {
         this(new CallManager(), lowestFloor, highestFloor, cabinSize, UP);

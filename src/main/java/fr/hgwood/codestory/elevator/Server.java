@@ -82,7 +82,7 @@ public class Server {
                 Direction direction = UP;
                 callManager = new CallManager();
                 for (int i = 0; i < cabinCount; i++) {
-                    elevators.add(new Omnibus(callManager, lowerFloor, higherFloor, cabinSize, direction));
+                    elevators.add(new MercuryElevator(callManager, lowerFloor, higherFloor, cabinSize, direction));
                     direction = direction.reverse();
                 }
                 return "";

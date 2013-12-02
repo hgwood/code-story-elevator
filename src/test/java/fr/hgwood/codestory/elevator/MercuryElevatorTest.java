@@ -7,9 +7,9 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
 
-public class OmnibusTest {
+public class MercuryElevatorTest {
     
-    private final Elevator sut = new Omnibus(0, 2, 1);
+    private final Elevator sut = new MercuryElevator(0, 2, 1);
     
     @Test public void goesUpAndDownTheBuilding() {
         assertThat(sut.next(), is(Up));

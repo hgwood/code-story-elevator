@@ -7,7 +7,7 @@ import static fr.hgwood.codestory.elevator.Direction.UP;
 
 import java.util.Set;
 
-public class Omnibus implements Elevator {
+public class MercuryElevator implements Elevator {
     
     private final CallManager callManager;
     private final int lowestFloor;
@@ -19,11 +19,11 @@ public class Omnibus implements Elevator {
     private boolean isOpened;
     private int currentNumberOfUsers;
     
-    public Omnibus(int lowestFloor, int highestFloor, int cabinSize) {
+    public MercuryElevator(int lowestFloor, int highestFloor, int cabinSize) {
         this(new CallManager(), lowestFloor, highestFloor, cabinSize, UP);
     }
     
-    public Omnibus(CallManager callManager, int lowestFloor, int highestFloor, int cabinSize, Direction initialDirection) {
+    public MercuryElevator(CallManager callManager, int lowestFloor, int highestFloor, int cabinSize, Direction initialDirection) {
         this.callManager = callManager;
         this.lowestFloor = lowestFloor;
         this.highestFloor = highestFloor;

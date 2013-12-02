@@ -1,16 +1,16 @@
-package fr.hgwood.codestory.elevator;
+package fr.hgwood.codestory.elevator.long_;
 
 import static fr.hgwood.codestory.elevator.Direction.DOWN;
 import static fr.hgwood.codestory.elevator.Direction.UP;
-import static fr.hgwood.codestory.elevator.TestUtils.requestTo;
+import static fr.hgwood.codestory.elevator.long_.TestUtils.requestTo;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Rule;
 import org.junit.Test;
 
-public class ForwardsEventsToElevator {
+public class ForwardsEventsToElevatorTest {
     
-    @Rule public EndToEndFixture fixture = new EndToEndFixture();
+    @Rule public ServerFixture fixture = new ServerFixture();
     
     @Test public void call() throws Exception {
         requestTo("/call?atFloor=0&to=UP");

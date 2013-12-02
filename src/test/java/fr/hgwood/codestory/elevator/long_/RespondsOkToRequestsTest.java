@@ -1,13 +1,13 @@
-package fr.hgwood.codestory.elevator;
+package fr.hgwood.codestory.elevator.long_;
 
-import static fr.hgwood.codestory.elevator.TestUtils.*;
+import static fr.hgwood.codestory.elevator.long_.TestUtils.*;
 import static org.junit.Assert.assertThat;
 
 import org.junit.*;
 
-public class RespondsOkToEventsTest { //extends AcceptanceTest {
+public class RespondsOkToRequestsTest {
     
-    @Rule public EndToEndFixture fixture = new EndToEndFixture();
+    @Rule public ServerFixture fixture = new ServerFixture();
 
     @Test public void call() throws Exception {
         assertThat(requestTo("/call?atFloor=0&to=UP"), respondsOk());

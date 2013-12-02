@@ -1,4 +1,4 @@
-package fr.hgwood.codestory.elevator;
+package fr.hgwood.codestory.elevator.long_;
 
 import java.io.*;
 import java.net.HttpURLConnection;

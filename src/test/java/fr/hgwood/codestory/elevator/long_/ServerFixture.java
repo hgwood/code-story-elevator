@@ -1,13 +1,15 @@
-package fr.hgwood.codestory.elevator;
+package fr.hgwood.codestory.elevator.long_;
 
 import static fr.hgwood.codestory.elevator.Action.Open;
-import static fr.hgwood.codestory.elevator.TestUtils.TestPort;
+import static fr.hgwood.codestory.elevator.long_.TestUtils.TestPort;
 import static java.util.Collections.singletonList;
 import static org.mockito.Mockito.*;
 
 import org.junit.rules.ExternalResource;
 
-public class EndToEndFixture extends ExternalResource {
+import fr.hgwood.codestory.elevator.*;
+
+public class ServerFixture extends ExternalResource {
     
     public final Elevator elevator = mock(Elevator.class);
     public final CallManager callManager = mock(CallManager.class);

@@ -74,6 +74,8 @@ public class ElevatorSimulation {
         sut.userHasExited();
         sut.userHasExited();
         assertThat(sut.next(), is(Close));
+        assertThat(sut.next(), is(Down));
+        assertThat(sut.next(), is(Up));
     }
     
 }

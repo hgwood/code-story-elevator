@@ -42,7 +42,7 @@ public class MercuryElevator implements Elevator {
     @Override public void userHasEntered() {
         if (cabinIsFull()) throw new IllegalStateException("cabin is full!");
         currentNumberOfUsers += 1;
-        callManager.remove(currentFloor, currentDirection);
+        //callManager.remove(currentFloor, currentDirection); // this is done at reservation time now
     }
 
     @Override public void userHasExited() {
@@ -55,7 +55,10 @@ public class MercuryElevator implements Elevator {
         if (currentFloor == lowestFloor) currentDirection = UP;
         if (isOpened) return close();
         if (floorsWherePeopleWantToOut.contains(currentFloor)) return open();
-        if (!cabinIsFull() && callManager.wasCalledAt(currentFloor, currentDirection)) return open();
+        if (!cabinIsFull() && callManager.wasCalledAt(currentFloor, currentDirection)) {
+            callManager.reserve(currentFloor, currentDirection, cabinSize - currentNumberOfUsers);
+            return open();
+        }
         if (currentDirection == UP) return up();
         else return down();
     }

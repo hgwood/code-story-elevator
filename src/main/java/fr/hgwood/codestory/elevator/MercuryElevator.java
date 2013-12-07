@@ -56,7 +56,12 @@ public class MercuryElevator implements Elevator {
         if (isOpened) return close();
         if (floorsWherePeopleWantToOut.contains(currentFloor)) return open();
         if (!cabinIsFull() && callManager.wasCalledAt(currentFloor, currentDirection)) {
-            callManager.reserve(currentFloor, currentDirection, cabinSize - currentNumberOfUsers);
+            callManager.reserve(currentFloor, currentDirection, freeSpace());
+            return open();
+        }
+        if (cabinIsEmpty() && callManager.wasCalledAt(currentFloor, currentDirection.reverse())) {
+            currentDirection = currentDirection.reverse();
+            callManager.reserve(currentFloor, currentDirection, freeSpace());
             return open();
         }
         if (currentDirection == UP) return up();
@@ -69,6 +74,10 @@ public class MercuryElevator implements Elevator {
     
     private boolean cabinIsEmpty() {
         return currentNumberOfUsers <= 0;
+    }
+    
+    private int freeSpace() {
+        return cabinSize - currentNumberOfUsers;
     }
     
     private Action open() {

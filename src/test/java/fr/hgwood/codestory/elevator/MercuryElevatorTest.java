@@ -65,5 +65,14 @@ public class MercuryElevatorTest {
         assertThat(sut.next(), is(Close));
         assertThat(sut.next(), is(Up));
     }
+    
+    @Test public void OpenAndReverseIfEmptyAndNoOneWantsToGetInInTheCurrentDirectionButSomeoneWantsToGetInInTheOtherDirection() {
+        sut.call(1, DOWN);
+        assertThat(sut.next(), is(Up));
+        assertThat(sut.next(), is(Open_Down));
+        sut.userHasEntered();
+        assertThat(sut.next(), is(Close));
+        assertThat(sut.next(), is(Down));
+    }
 
 }

@@ -12,6 +12,7 @@ public class MercuryElevator implements Elevator {
     private final CallManager callManager;
     private final int lowestFloor;
     private final int highestFloor;
+    private final int middleFloor;
     private final int cabinSize;
     private final Set<Integer> floorsWherePeopleWantToOut = newHashSet();
     private int currentFloor;
@@ -27,6 +28,7 @@ public class MercuryElevator implements Elevator {
         this.callManager = callManager;
         this.lowestFloor = lowestFloor;
         this.highestFloor = highestFloor;
+        this.middleFloor = (highestFloor - lowestFloor) / 2;
         this.cabinSize = cabinSize;
         this.currentDirection = initialDirection;
     }
@@ -64,6 +66,16 @@ public class MercuryElevator implements Elevator {
             callManager.reserve(currentFloor, currentDirection, freeSpace());
             return open();
         }
+        if(cabinIsEmpty() && !callManager.hasCalls(currentFloor, currentDirection)) {
+            currentDirection = currentDirection.reverse();
+        }
+        if(cabinIsEmpty() && !callManager.hasCalls()) {
+            if (currentFloor > middleFloor) currentDirection = DOWN;
+            else if (currentFloor < middleFloor) currentDirection = UP;
+            else return Nothing;
+        }
+        if (currentFloor == highestFloor) currentDirection = DOWN;
+        if (currentFloor == lowestFloor) currentDirection = UP;
         if (currentDirection == UP) return up();
         else return down();
     }

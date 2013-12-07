@@ -1,6 +1,6 @@
 package fr.hgwood.codestory.elevator;
 
-import static fr.hgwood.codestory.elevator.Direction.UP;
+import static fr.hgwood.codestory.elevator.Direction.*;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
@@ -32,6 +32,22 @@ public class CallManager {
 
     public void reserve(int currentFloor, Direction currentDirection, int n) {
         remove(currentFloor, currentDirection, n);
+    }
+
+    public boolean hasCalls(int reference, Direction direction) {
+        for (int floor : upCalls) {
+            if (floor > reference && direction == UP) return true;
+            if (floor < reference && direction == DOWN) return true;
+        }
+        for (int floor : downCalls) {
+            if (floor > reference && direction == UP) return true;
+            if (floor < reference && direction == DOWN) return true;
+        }
+        return false;
+    }
+
+    public boolean hasCalls() {
+        return !upCalls.isEmpty() || !downCalls.isEmpty();
     }
 
 }

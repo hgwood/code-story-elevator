@@ -5,21 +5,17 @@ import static fr.hgwood.codestory.elevator.Direction.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MercuryElevatorTest {
     
     private final Elevator sut = new MercuryElevator(0, 2, 1);
     
-    @Test public void goesUpAndDownTheBuilding() {
+    @Test public void idlesAtTheMiddleFloor() {
         assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Down));
-        assertThat(sut.next(), is(Down));
-        assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Up));
-        assertThat(sut.next(), is(Down));
-        assertThat(sut.next(), is(Down));
+        assertThat(sut.next(), is(Nothing));
+        assertThat(sut.next(), is(Nothing));
     }
     
     @Test public void stopsAtCalledFloors() {
@@ -28,7 +24,6 @@ public class MercuryElevatorTest {
         assertThat(sut.next(), is(Open_Up));
         sut.userHasEntered();
         assertThat(sut.next(), is(Close));
-        assertThat(sut.next(), is(Up));
     }
     
     @Test public void stopsAtDestinationFloors() {
@@ -38,7 +33,6 @@ public class MercuryElevatorTest {
         assertThat(sut.next(), is(Open_Up));
         sut.userHasExited();
         assertThat(sut.next(), is(Close));
-        assertThat(sut.next(), is(Up));
     }
     
     @Test(expected=IllegalStateException.class) 
@@ -66,12 +60,18 @@ public class MercuryElevatorTest {
         assertThat(sut.next(), is(Up));
     }
     
-    @Test public void OpenAndReverseIfEmptyAndNoOneWantsToGetInInTheCurrentDirectionButSomeoneWantsToGetInInTheOtherDirection() {
+    @Test public void openAndReverseIfEmptyAndNoOneWantsToGetInInTheCurrentDirectionButSomeoneWantsToGetInInTheOtherDirection() {
         sut.call(1, DOWN);
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Open_Down));
         sut.userHasEntered();
         assertThat(sut.next(), is(Close));
+        assertThat(sut.next(), is(Down));
+    }
+    
+    @Test public void reversesIfEmptyAndNoMoreCallsInCurrentDirection() {
+        assertThat(sut.next(), is(Up));
+        sut.call(0, UP);
         assertThat(sut.next(), is(Down));
     }
 

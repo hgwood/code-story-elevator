@@ -37,5 +37,44 @@ public class CallManagerTest {
         sut.reserve(0, UP, 2);
         assertFalse(sut.wasCalledAt(0, UP));
     }
+    
+    @Test public void canTellIfThereAreSomeUpCallsAbove() {
+        sut.add(1, UP);
+        assertTrue(sut.hasCalls(0, UP));
+    }
+    
+    @Test public void canTellIfThereAreSomeUpCallsBelow() {
+        sut.add(0, UP);
+        assertTrue(sut.hasCalls(1, DOWN));
+    }
+    
+    @Test public void canTellIfThereAreSomeDownCallsAbove() {
+        sut.add(1, DOWN);
+        assertTrue(sut.hasCalls(0, UP));
+    }
+    
+    @Test public void canTellIfThereAreSomeDownCallsBelow() {
+        sut.add(0, DOWN);
+        assertTrue(sut.hasCalls(1, DOWN));
+    }
+    
+    @Test public void canTellIfThereAreNoCallsAboveOrBelow() {
+        assertFalse(sut.hasCalls(0, UP));
+        assertFalse(sut.hasCalls(0, DOWN));
+    }
+    
+    @Test public void doesntTellThereAreSomeCallsAboveIfThereAreBelow() {
+        sut.add(0, UP);
+        assertFalse(sut.hasCalls(1, UP));
+    }
+    
+    @Test public void canTellIfThereAreNoCallsAtAll() {
+        assertFalse(sut.hasCalls());
+    }
+    
+    @Test public void canTellIfThereAreSomeCalls() {
+        sut.add(0, UP);
+        assertTrue(sut.hasCalls());
+    }
 
 }

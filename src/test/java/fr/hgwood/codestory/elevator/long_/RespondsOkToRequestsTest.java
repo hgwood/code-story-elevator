@@ -27,10 +27,10 @@ public class RespondsOkToRequestsTest {
 
     @Test public void reset() throws Exception {
         String resetUrl = "/reset?" +
-            "lowerFloor=0&" +
-            "higherFloor=1&" + 
+            "lowerFloor=-5&" +
+            "higherFloor=40&" + 
             "cabinSize=1&" + 
-            "cabinCount=2&" +
+            "cabinCount=4&" +
             "cause=information+message";
         assertThat(requestTo(resetUrl), respondsOk());
     }

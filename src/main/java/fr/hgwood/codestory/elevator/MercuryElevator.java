@@ -12,7 +12,7 @@ public class MercuryElevator implements Elevator {
     private final CallManager callManager;
     private final int lowestFloor;
     private final int highestFloor;
-    private final int middleFloor;
+    private final int idleFloor;
     private final int cabinSize;
     private final Set<Integer> floorsWherePeopleWantToOut = newHashSet();
     private int currentFloor;
@@ -20,15 +20,15 @@ public class MercuryElevator implements Elevator {
     private boolean isOpened;
     private int currentNumberOfUsers;
     
-    public MercuryElevator(int lowestFloor, int highestFloor, int cabinSize) {
-        this(new CallManager(), lowestFloor, highestFloor, cabinSize, UP);
+    public MercuryElevator(int lowestFloor, int highestFloor, int cabinSize, int idleFloor) {
+        this(new CallManager(), lowestFloor, highestFloor, cabinSize, UP, idleFloor);
     }
     
-    public MercuryElevator(CallManager callManager, int lowestFloor, int highestFloor, int cabinSize, Direction initialDirection) {
+    public MercuryElevator(CallManager callManager, int lowestFloor, int highestFloor, int cabinSize, Direction initialDirection, int idleFloor) {
         this.callManager = callManager;
         this.lowestFloor = lowestFloor;
         this.highestFloor = highestFloor;
-        this.middleFloor = (highestFloor - lowestFloor) / 2;
+        this.idleFloor = idleFloor; //(highestFloor - lowestFloor) / 2;
         this.cabinSize = cabinSize;
         this.currentDirection = initialDirection;
     }
@@ -70,8 +70,8 @@ public class MercuryElevator implements Elevator {
             currentDirection = currentDirection.reverse();
         }
         if(cabinIsEmpty() && !callManager.hasCalls()) {
-            if (currentFloor > middleFloor) currentDirection = DOWN;
-            else if (currentFloor < middleFloor) currentDirection = UP;
+            if (currentFloor > idleFloor) currentDirection = DOWN;
+            else if (currentFloor < idleFloor) currentDirection = UP;
             else return Nothing;
         }
         if (currentFloor == highestFloor) currentDirection = DOWN;

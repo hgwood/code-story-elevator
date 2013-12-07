@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class ElevatorSimulation {
     
-    private final Elevator sut = new MercuryElevator(0, 19, 10);
+    private final Elevator sut = new MercuryElevator(0, 19, 10, 5);
 
     @Test public void run() {
         assertThat(sut.next(), is(Up)); //1

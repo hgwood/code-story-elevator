@@ -10,9 +10,9 @@ import org.junit.Test;
 
 public class MercuryElevatorTest {
     
-    private final Elevator sut = new MercuryElevator(0, 2, 1);
+    private final Elevator sut = new MercuryElevator(0, 2, 1, 1);
     
-    @Test public void idlesAtTheMiddleFloor() {
+    @Test public void idlesAtIdleFloor() {
         assertThat(sut.next(), is(Up));
         assertThat(sut.next(), is(Nothing));
         assertThat(sut.next(), is(Nothing));

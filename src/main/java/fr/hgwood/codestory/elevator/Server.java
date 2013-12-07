@@ -81,8 +81,9 @@ public class Server {
                 elevators = newArrayList();
                 Direction direction = UP;
                 callManager = new CallManager();
+                int idleFloorStep = (higherFloor - lowerFloor) / (cabinCount + 1);
                 for (int i = 0; i < cabinCount; i++) {
-                    elevators.add(new MercuryElevator(callManager, lowerFloor, higherFloor, cabinSize, direction));
+                    elevators.add(new MercuryElevator(callManager, lowerFloor, higherFloor, cabinSize, direction, (i + 1) * idleFloorStep));
                     direction = direction.reverse();
                 }
                 return "";

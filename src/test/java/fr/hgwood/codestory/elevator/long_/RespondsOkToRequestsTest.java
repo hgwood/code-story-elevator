@@ -7,7 +7,7 @@ import org.junit.*;
 
 public class RespondsOkToRequestsTest {
     
-    @Rule public ServerFixture fixture = new ServerFixture();
+    @ClassRule public static final ServerFixture fixture = new ServerFixture();
 
     @Test public void call() throws Exception {
         assertThat(requestTo("/call?atFloor=0&to=UP"), respondsOk());

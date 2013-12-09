@@ -1,30 +1,21 @@
 package fr.hgwood.codestory.elevator;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
-import static spark.Spark.*;
-import static fr.hgwood.codestory.elevator.Direction.*;
-
-import java.util.Collections;
-import java.util.List;
-
+import static spark.Spark.get;
+import static spark.Spark.setPort;
 import spark.*;
+
+import com.google.common.base.Joiner;
 
 public class Server {
     public static void main(String[] args) {
-        new Server().start(8080);
+        new Server(new ResetableElevatorSystem()).start(8080);
     }
     
-    private List<Elevator> elevators;
-    private CallManager callManager;
+    private final GameMasterListener listener;
     
-    public Server() {
-        this(Collections.<Elevator>emptyList(), new CallManager());
-    }
-    
-    public Server(List<Elevator> elevators, CallManager callManager) {
-        this.elevators = elevators;
-        this.callManager = callManager;
+    public Server(GameMasterListener listener) {
+        this.listener = listener;
     }
 
     public void start(int port) {
@@ -40,7 +31,7 @@ public class Server {
             public Object handle(Request request, Response response) {
                 int atFloor = parseInt(request.queryParams("atFloor"));
                 Direction to = Direction.valueOf(request.queryParams("to"));
-                callManager.add(atFloor, to);
+                listener.call(atFloor, to);
                 return "";
             }
         });
@@ -49,7 +40,7 @@ public class Server {
             public Object handle(Request request, Response response) {
                 int cabin = parseInt(request.queryParams("cabin"));
                 int floorToGo = parseInt(request.queryParams("floorToGo"));
-                elevators.get(cabin).go(floorToGo);
+                listener.go(cabin, floorToGo);
                 return "";
             }
         });
@@ -57,7 +48,7 @@ public class Server {
             @Override
             public Object handle(Request request, Response response) {
                 int cabin = parseInt(request.queryParams("cabin"));
-                elevators.get(cabin).userHasEntered();
+                listener.userHasEntered(cabin);
                 return "";
             }
         });
@@ -65,39 +56,26 @@ public class Server {
             @Override
             public Object handle(Request request, Response response) {
                 int cabin = parseInt(request.queryParams("cabin"));
-                elevators.get(cabin).userHasExited();
+                listener.userHasExited(cabin);
                 return "";
             }
         });
         get(new Route("/reset") {
             @Override
             public Object handle(Request request, Response response) {
-                int lowerFloor = parseInt(request.queryParams("lowerFloor"));
-                int higherFloor = parseInt(request.queryParams("higherFloor"));
+                int lowestFloor = parseInt(request.queryParams("lowerFloor"));
+                int highestFloor = parseInt(request.queryParams("higherFloor"));
                 int cabinSize = parseInt(request.queryParams("cabinSize"));
                 int cabinCount = parseInt(request.queryParams("cabinCount"));
                 String cause = request.queryParams("cause");
-                System.out.println("reset! cause: " + cause);
-                elevators = newArrayList();
-                Direction direction = UP;
-                callManager = new CallManager();
-                int idleFloorStep = (higherFloor - lowerFloor) / (cabinCount + 1);
-                for (int i = 0; i < cabinCount; i++) {
-                    elevators.add(new MercuryElevator(callManager, lowerFloor, higherFloor, cabinSize, direction, (i + 1) * idleFloorStep));
-                    direction = direction.reverse();
-                }
+                listener.reset(lowestFloor, highestFloor, cabinSize, cabinCount);
                 return "";
             }
         });
         get(new Route("/nextCommands") {
             @Override
             public Object handle(Request request, Response response) {
-                StringBuilder commands = new StringBuilder();
-                for (Elevator elevator : elevators) {
-                    commands.append(elevator.next().toString().toUpperCase());
-                    commands.append("\n");
-                }
-                return commands.toString();
+                return Joiner.on('\n').join(listener.nextCommands()).toUpperCase();
             }
         });
     }

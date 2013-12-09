@@ -45,19 +45,19 @@ public class TestUtils {
     	return responds(200);
     }
     
-    public static Matcher<HttpResponseInfo> responds(final String content) {
+    public static Matcher<HttpResponseInfo> responds(final String expectedContent) {
         return new TypeSafeMatcher<HttpResponseInfo>() {
 
             @Override
             public void describeTo(Description description) {
                 description
-                .appendText("A HTTP response with content equals to ")
-                .appendValue(content);
+                    .appendText("A HTTP response with content equals to ")
+                    .appendValue(expectedContent);
             }
 
             @Override
             protected boolean matchesSafely(HttpResponseInfo input) {
-                return input.content.equals(content);
+                return input.content.equals(expectedContent);
             }
         };
     }

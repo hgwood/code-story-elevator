@@ -9,5 +9,10 @@ public class HttpResponseInfo {
         this.status = status;
         this.content = content;
     }
+    
+    @Override public String toString() {
+        return HttpResponseInfo.class.getSimpleName() + 
+            ": \"" + content + "\" (" + status + ")";
+    }
 
 }

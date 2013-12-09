@@ -8,6 +8,6 @@ public enum Action {
     Open,
     Open_Up,
     Open_Down,
-    Close,
+    Close;
 
 }

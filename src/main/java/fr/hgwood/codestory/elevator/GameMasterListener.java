@@ -9,7 +9,7 @@ public interface GameMasterListener {
     void userHasEntered(int cabin);
     void userHasExited(int cabin);
     List<Action> nextCommands();
-    void reset(int lowestFloor, int highestFloor, int cabinSize, int cabinCount);
+    void reset(int lowestFloor, int highestFloor, int cabinSize, int cabinCount, String cause);
     
 
 }

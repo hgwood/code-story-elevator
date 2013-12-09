@@ -11,7 +11,7 @@ public final class ResetableElevatorSystem implements GameMasterListener {
     private ElevatorSystem delegate;
 
     public ResetableElevatorSystem() {
-        reset(0, 1, 1, 1);
+        reset(0, 1, 1, 1, "");
     }
 
     @Override public void call(int floor, Direction direction) {
@@ -34,7 +34,7 @@ public final class ResetableElevatorSystem implements GameMasterListener {
         return delegate.nextCommands();
     }
 
-    @Override public void reset(int lowestFloor, int highestFloor, int cabinSize, int cabinCount) {
+    @Override public void reset(int lowestFloor, int highestFloor, int cabinSize, int cabinCount, String cause) {
         ImmutableList.Builder<Elevator> elevators = ImmutableList.builder();
         CallManager callManager = new CallManager();
         int idleFloorStep = (highestFloor - lowestFloor) / (cabinCount + 1);

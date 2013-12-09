@@ -59,15 +59,15 @@ public class ForwardsEventsToElevatorTest {
             "cabinCount=1&" +
             "cause=information+message";
         requestTo(resetUrl);
-        verify(fixture.listener).reset(0, 1, 1, 1);
+        verify(fixture.listener).reset(0, 1, 1, 1, "information message");
         resetUrl = "/reset?" +
             "lowerFloor=-5&" +
             "higherFloor=40&" + 
             "cabinSize=3&" + 
             "cabinCount=4&" +
-            "cause=information+message";
+            "cause=information";
         requestTo(resetUrl);
-        verify(fixture.listener).reset(-5, 40, 3, 4);
+        verify(fixture.listener).reset(-5, 40, 3, 4, "information");
     }
 
 }

@@ -3,23 +3,11 @@ package fr.hgwood.codestory.elevator;
 import static java.lang.Integer.parseInt;
 import static spark.Spark.get;
 import static spark.Spark.setPort;
-
-import org.slf4j.LoggerFactory;
-
 import spark.*;
 
 import com.google.common.base.Joiner;
 
 public class SparkGameMaster {
-    
-    public static void main(String[] args) {
-        new SparkGameMaster(
-            new SynchronizingGameMasterListener(
-                new LoggingGameMasterListener(
-                    new ResetableElevatorSystem(),
-                    LoggerFactory.getLogger("GameMasterListener"))))
-            .start(8080);
-    }
     
     private final GameMasterListener listener;
     

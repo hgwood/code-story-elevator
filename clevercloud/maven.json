@@ -4,6 +4,6 @@
         "goal": "clean package -DskipTests"
     },
     "deploy": {
-        "goal": "-Dexec.mainClass=\"fr.hgwood.codestory.elevator.SparkGameMaster\" exec:java"
+        "goal": "-Dexec.mainClass=\"fr.hgwood.codestory.elevator.Main\" exec:java"
     }
 }

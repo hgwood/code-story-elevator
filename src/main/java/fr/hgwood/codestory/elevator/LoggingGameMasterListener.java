@@ -15,24 +15,28 @@ public class LoggingGameMasterListener implements GameMasterListener {
     }
 
     @Override public void call(int floor, Direction direction) {
+        log.trace("received call at floor {} going {}", floor, direction);
         delegate.call(floor, direction);
     }
 
     @Override public void go(int cabin, int floor) {
+        log.trace("cabin {} received go to floor {}", cabin, floor);
         delegate.go(cabin, floor);
     }
 
     @Override public void userHasEntered(int cabin) {
+        log.trace("user has entered in cabin {}", cabin);
         delegate.userHasEntered(cabin);
     }
 
     @Override public void userHasExited(int cabin) {
+        log.trace("user has exited cabin {}", cabin);
         delegate.userHasExited(cabin);
     }
 
     @Override public List<Action> nextCommands() {
         List<Action> actions = delegate.nextCommands();
-        log.info("responded to next: {}", actions);
+        log.trace("responded to next: {}", actions);
         return actions;
     }
 

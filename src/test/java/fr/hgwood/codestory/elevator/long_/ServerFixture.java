@@ -6,15 +6,15 @@ import static org.mockito.Mockito.mock;
 import org.junit.rules.ExternalResource;
 
 import fr.hgwood.codestory.elevator.GameMasterListener;
-import fr.hgwood.codestory.elevator.Server;
+import fr.hgwood.codestory.elevator.SparkGameMaster;
 
 public class ServerFixture extends ExternalResource {
     
     public final GameMasterListener listener = mock(GameMasterListener.class);
-    private Server server;
+    private SparkGameMaster server;
     
     @Override protected void before() {
-        server = new Server(listener);
+        server = new SparkGameMaster(listener);
         server.start(TestPort);
     }
     

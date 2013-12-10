@@ -10,10 +10,10 @@ import spark.*;
 
 import com.google.common.base.Joiner;
 
-public class Server {
+public class SparkGameMaster {
     
     public static void main(String[] args) {
-        new Server(
+        new SparkGameMaster(
             new SynchronizingGameMasterListener(
                 new LoggingGameMasterListener(
                     new ResetableElevatorSystem(),
@@ -23,7 +23,7 @@ public class Server {
     
     private final GameMasterListener listener;
     
-    public Server(GameMasterListener listener) {
+    public SparkGameMaster(GameMasterListener listener) {
         this.listener = listener;
     }
 

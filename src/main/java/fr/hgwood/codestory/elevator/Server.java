@@ -14,9 +14,10 @@ public class Server {
     
     public static void main(String[] args) {
         new Server(
-            new LoggingGameMasterListener(
-                new ResetableElevatorSystem(),
-                LoggerFactory.getLogger("GameMasterListener")))
+            new SynchronizingGameMasterListener(
+                new LoggingGameMasterListener(
+                    new ResetableElevatorSystem(),
+                    LoggerFactory.getLogger("GameMasterListener"))))
             .start(8080);
     }
     

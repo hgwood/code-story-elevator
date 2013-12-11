@@ -1,5 +1,6 @@
 package fr.hgwood.codestory.elevator;
 
+import static com.google.common.base.Objects.toStringHelper;
 import static com.google.common.collect.Sets.newHashSet;
 import static fr.hgwood.codestory.elevator.Action.*;
 import static fr.hgwood.codestory.elevator.Direction.DOWN;
@@ -112,6 +113,20 @@ public class MercuryElevator implements Elevator {
     private Action down() {
         currentFloor -= 1;
         return Down;
+    }
+    
+    @Override public String toString() {
+        return toStringHelper(this.getClass())
+            .add("lowestFloor", lowestFloor)
+            .add("highestFloor", highestFloor)
+            .add("currentFloor", currentFloor)
+            .add("idleFloor", idleFloor)
+            .add("currentDirection", currentDirection)
+            .add("cabinSize", cabinSize)
+            .add("currentNumberOfUsers", currentNumberOfUsers)
+            .add("isOpened", isOpened)
+            .add("floorsWherePeopleWantToOut", floorsWherePeopleWantToOut)
+            .toString();
     }
 
 }

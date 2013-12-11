@@ -1,5 +1,6 @@
 package fr.hgwood.codestory.elevator;
 
+import static com.google.common.base.Objects.toStringHelper;
 import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
@@ -37,6 +38,13 @@ public class MercuryElevatorSystem implements ElevatorSystem {
         for (Elevator elevator : elevators)
             actions.add(elevator.next());
         return actions;
+    }
+    
+    @Override public String toString() {
+        return toStringHelper(this.getClass())
+            .add("elevators", elevators)
+            .add("callManager", callManager)
+            .toString();
     }
 
 }

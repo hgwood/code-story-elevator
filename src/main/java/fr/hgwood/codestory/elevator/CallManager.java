@@ -1,5 +1,6 @@
 package fr.hgwood.codestory.elevator;
 
+import static com.google.common.base.Objects.toStringHelper;
 import static fr.hgwood.codestory.elevator.Direction.*;
 
 import com.google.common.collect.HashMultiset;
@@ -48,6 +49,13 @@ public class CallManager {
 
     public boolean hasCalls() {
         return !upCalls.isEmpty() || !downCalls.isEmpty();
+    }
+    
+    @Override public String toString() {
+        return toStringHelper(this.getClass())
+            .add("upCalls", upCalls)
+            .add("downCalls", downCalls)
+            .toString();
     }
 
 }

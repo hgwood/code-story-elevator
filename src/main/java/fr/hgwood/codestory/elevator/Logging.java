@@ -42,7 +42,10 @@ public class Logging implements GameMasterListener {
 
     @Override public void reset(int lowestFloor, int highestFloor, int cabinSize, int cabinCount, String cause) {
         log.warn("reset! cause: {}", cause);
+        log.info("reset parameters: lowestFloor={}, highestFloor={}, cabinSize={}, cabinCount={}", lowestFloor, highestFloor, cabinSize, cabinCount);
+        log.info("state before reset was: {}", delegate);
         delegate.reset(lowestFloor, highestFloor, cabinSize, cabinCount, cause);
+        log.info("state after reset was: {}", delegate);
     }
 
 }

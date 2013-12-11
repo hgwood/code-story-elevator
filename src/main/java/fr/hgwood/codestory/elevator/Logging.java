@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.slf4j.Logger;
 
-public class LoggingGameMasterListener implements GameMasterListener {
+public class Logging implements GameMasterListener {
     
     private final GameMasterListener delegate;
     private final Logger log;
 
-    public LoggingGameMasterListener(GameMasterListener delegate, Logger log) {
+    public Logging(GameMasterListener delegate, Logger log) {
         this.delegate = delegate;
         this.log = log;
     }

@@ -16,8 +16,8 @@ public class ThreadingTest {
     private final int cabinCount = 10;
     private final Random random = new Random();
     private final GameMasterListener sut = 
-        new SynchronizingGameMasterListener(
-        new LoggingGameMasterListener(
+        new Synchronized(
+        new Logging(
             new ResetableElevatorSystem(), 
             LoggerFactory.getLogger(ThreadingTest.class)));
     

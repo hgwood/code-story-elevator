@@ -2,11 +2,11 @@ package fr.hgwood.codestory.elevator;
 
 import java.util.List;
 
-public class SynchronizingGameMasterListener implements GameMasterListener {
+public class Synchronized implements GameMasterListener {
     
     private final GameMasterListener delegate;
 
-    public SynchronizingGameMasterListener(GameMasterListener delegate) {
+    public Synchronized(GameMasterListener delegate) {
         this.delegate = delegate;
     }
 

@@ -6,10 +6,10 @@ public class Main {
     
     public static void main(String[] args) {
         new SparkGameMaster(
-            new SynchronizingGameMasterListener(
-                new LoggingGameMasterListener(
+            new Synchronized(
+                new Logging(
                     new ResetableElevatorSystem(),
-                    LoggerFactory.getLogger("GameMasterListener"))))
+                    LoggerFactory.getLogger(GameMasterListener.class))))
             .start(8080);
     }
 

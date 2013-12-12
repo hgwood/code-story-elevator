@@ -1,7 +1,7 @@
 package fr.hgwood.codestory.elevator;
 
-import static com.google.common.base.Objects.toStringHelper;
-import static fr.hgwood.codestory.elevator.Direction.*;
+import static fr.hgwood.codestory.elevator.Direction.DOWN;
+import static fr.hgwood.codestory.elevator.Direction.UP;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
@@ -52,10 +52,8 @@ public class CallManager {
     }
     
     @Override public String toString() {
-        return toStringHelper(this.getClass())
-            .add("upCalls", upCalls)
-            .add("downCalls", downCalls)
-            .toString();
+        return String.format(
+            "{^%s, v%s}", upCalls, downCalls);
     }
 
 }

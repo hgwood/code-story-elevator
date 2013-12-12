@@ -1,6 +1,5 @@
 package fr.hgwood.codestory.elevator;
 
-import static com.google.common.base.Objects.toStringHelper;
 import static fr.hgwood.codestory.elevator.Direction.UP;
 
 import java.util.List;
@@ -48,9 +47,7 @@ public final class ResetableElevatorSystem implements GameMasterListener {
     }
     
     @Override public String toString() {
-        return toStringHelper(this.getClass())
-            .add("delegate", delegate)
-            .toString();
+        return String.format("Resetable{%s}", delegate);
     }
 
 }
